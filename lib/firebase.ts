@@ -10,8 +10,12 @@ import {
     orderBy,
     getDoc,
     DocumentSnapshot,
+    Timestamp,
+    collectionGroup,
+    startAfter,
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
+import { PostModel } from './globalTypes';
 
 const firebaseConfig = {
     apiKey: 'AIzaSyBa3Sb0eHbG0rQtjVKBAsbll6MaJpppSW4',
@@ -74,6 +78,7 @@ export async function getPostsByUser(uid: string) {
     const postsByUserQuery = query(
         userPostsRef,
         where('published', '==', false),
+        orderBy('createdAt', 'desc'),
         limit(5)
     );
 
@@ -83,3 +88,47 @@ export async function getPostsByUser(uid: string) {
 
     return sanitizedDocs;
 }
+
+/**
+ *Get `limit` number of posts ordered descending by their creation date
+ *@param {number} postsLimit
+ */
+export async function getPostsWithLimit(postsLimit: number) {
+    const postsRef = collectionGroup(firestore, 'posts');
+    const postsQuery = query(
+        postsRef,
+        where('published', '==', false),
+        orderBy('createdAt', 'desc'),
+        limit(postsLimit)
+    );
+
+    const posts = (await getDocs(postsQuery)).docs.map(postToJSON);
+
+    return posts;
+}
+
+/**
+ *
+ * @param {number} postsLimit
+ * @param {Timestamp} lastPostTimestamp
+ * @returns {PostModel[]} An array of posts created after the current last rendered post
+ */
+export async function getPostsStartingFromWithLimit(
+    postsLimit: number,
+    lastPostTimestamp: Timestamp
+) {
+    const postsRef = collectionGroup(firestore, 'posts');
+    const postsQuery = query(
+        postsRef,
+        where('published', '==', false),
+        orderBy('createdAt', 'desc'),
+        startAfter(lastPostTimestamp),
+        limit(postsLimit)
+    );
+
+    const posts = (await getDocs(postsQuery)).docs.map(postToJSON);
+    console.log(posts);
+    return posts;
+}
+
+export const fromMillis = Timestamp.fromMillis;

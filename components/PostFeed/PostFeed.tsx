@@ -5,7 +5,7 @@ import { PostModel } from '../../lib/globalTypes';
 type Props = {
     posts: PostModel[];
     //Temporary set to any until admin functionality is implemented
-    admin: any;
+    admin?: any;
 };
 
 export default function PostFeed({ posts, admin }: Props) {
