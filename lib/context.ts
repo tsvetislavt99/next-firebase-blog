@@ -1,12 +1,8 @@
 import { User } from 'firebase/auth';
 import { createContext } from 'react';
+import { UserContextParams } from './globalTypes';
 
-type UserContextParams = {
-    user: User | null;
-    username: string | null;
-};
-
-const initialValue = { user: null, username: null };
+const initialValue = { user: null, username: null, loading: true };
 
 export const UserContext = createContext<UserContextParams>(initialValue);
 

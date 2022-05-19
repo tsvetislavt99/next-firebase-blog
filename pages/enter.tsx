@@ -97,6 +97,7 @@ function UsernameForm(): JSX.Element {
                 username: usernameInputValue,
                 photoURL: user.photoURL,
                 displayName: user.displayName,
+                uid: user.uid,
             });
             batch.set(usernameDoc, { uid: user.uid });
             await batch.commit();
