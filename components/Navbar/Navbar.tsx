@@ -1,9 +1,13 @@
+import { ContextType, useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import toast from 'react-hot-toast';
+import { UserContext } from '../../lib/context';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../lib/firebase';
 
 export default function Navbar() {
-    //Temporary setting to null before auth is all set
-    const { user, username } = { user: null, username: null };
+    const { user, username } = useContext(UserContext);
 
     return (
         <nav className="mx-6 sm:mx-12 md:mx-24 lg:mx-36 my-4">
@@ -15,7 +19,7 @@ export default function Navbar() {
                         </button>
                     </Link>
                 </li>
-                {username && (
+                {username && user && (
                     <>
                         <li className="flex flex-row flex-nowrap items-center">
                             <Link href="/admin">
@@ -28,7 +32,7 @@ export default function Navbar() {
                                     <Image
                                         className="rounded-full p-0 m-0"
                                         src={
-                                            user?.photoUrl ||
+                                            user?.photoURL ||
                                             'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
                                         }
                                         alt="Profile photo"
@@ -37,6 +41,7 @@ export default function Navbar() {
                                     />
                                 </a>
                             </Link>
+                            <SignOutButton />
                         </li>
                     </>
                 )}
@@ -51,5 +56,29 @@ export default function Navbar() {
                 )}
             </ul>
         </nav>
+    );
+}
+
+function SignOutButton() {
+    const handleSignOut = async () => {
+        signOut(auth)
+            .then(() => {
+                toast.success('Signed out succeffully!');
+            })
+            .catch((error) => {
+                toast.error(
+                    'Ooops... We could not sign you out! Please try again!'
+                );
+                console.log(error);
+            });
+    };
+
+    return (
+        <button
+            className="flex flex-row flex-nowrap justify-between items-center bg-gray-200 px-2 py-4 rounded-md hover:bg-gray-300"
+            onClick={handleSignOut}
+        >
+            <p className="ml-2">Sign Out</p>
+        </button>
     );
 }
