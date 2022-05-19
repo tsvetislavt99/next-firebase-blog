@@ -27,6 +27,7 @@ export default function Navbar() {
                                     Create a Post
                                 </button>
                             </Link>
+                            <SignOutButton />
                             <Link href={`/${username}`}>
                                 <a className="flex items-center border-blue-500 border-2 sm:border-4 rounded-full ml-4 w-6 h-6 sm:w-12 sm:h-12">
                                     <Image
@@ -41,7 +42,6 @@ export default function Navbar() {
                                     />
                                 </a>
                             </Link>
-                            <SignOutButton />
                         </li>
                     </>
                 )}
@@ -75,10 +75,10 @@ function SignOutButton() {
 
     return (
         <button
-            className="flex flex-row flex-nowrap justify-between items-center bg-gray-200 px-2 py-4 rounded-md hover:bg-gray-300"
+            className="flex flex-row flex-nowrap justify-center bg-gray-200 px-2 py-2 rounded-md hover:bg-gray-300 ml-3"
             onClick={handleSignOut}
         >
-            <p className="ml-2">Sign Out</p>
+            <p className="text-center">Sign Out</p>
         </button>
     );
 }
