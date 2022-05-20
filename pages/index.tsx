@@ -55,7 +55,7 @@ export default function Home(props: Props) {
     };
 
     return (
-        <main>
+        <main className="bg-gray-200 h-screen">
             <div className="my-14 flex flex-col items-center">
                 <PostFeed posts={posts} />
                 <Loader show={isLoading} classNames="" />

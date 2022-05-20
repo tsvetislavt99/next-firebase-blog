@@ -90,6 +90,18 @@ export async function getPostsByUser(uid: string) {
 }
 
 /**
+ * @returns {QueryDocumentSnapshot<DocumentData>} all posts from the firestore
+ */
+export async function getAllPosts() {
+    const postsRef = collectionGroup(firestore, 'posts');
+    const postsQuery = query(postsRef);
+
+    const posts = (await getDocs(postsQuery)).docs.map(postToJSON);
+
+    return posts;
+}
+
+/**
  *Get `limit` number of posts ordered descending by their creation date
  *@param {number} postsLimit
  */
@@ -129,6 +141,26 @@ export async function getPostsStartingFromWithLimit(
     const posts = (await getDocs(postsQuery)).docs.map(postToJSON);
     console.log(posts);
     return posts;
+}
+/**
+ *
+ * @param {string} username
+ * @param {string} slug (post title in kebab-case)
+ * @returns {PostModel} Post with this slug
+ */
+export async function getPostByUsernameAndSlug(username: string, slug: string) {
+    const postsRef = collectionGroup(firestore, 'posts');
+    const postQuery = query(
+        postsRef,
+        where('slug', '==', slug),
+        where('username', '==', username),
+        limit(1)
+    );
+
+    //Temporary putting any until I revision pages/index.tsx:49
+    const post: any = (await getDocs(postQuery)).docs[0];
+
+    return postToJSON(post);
 }
 
 export const fromMillis = Timestamp.fromMillis;

@@ -21,9 +21,9 @@ export async function getServerSideProps({ query }) {
 
 export default function ProfilePage({ user, posts }) {
     return (
-        <div className="my-10">
+        <main className="mt-10 pt-5 bg-gray-200 h-screen">
             <UserProfile user={user} />
             <PostFeed posts={posts} admin={false} />
-        </div>
+        </main>
     );
 }
