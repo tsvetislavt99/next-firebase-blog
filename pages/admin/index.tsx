@@ -25,7 +25,6 @@ export default function AdminPostsPage(props) {
 function PostList() {
     const [posts, setPosts] = useState<PostModel[]>();
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    console.log('hi mom');
     useEffect(() => {
         const getPosts = async () => {
             const postsArr = await getPostsByUser(auth.currentUser.uid);

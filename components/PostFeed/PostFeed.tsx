@@ -8,7 +8,6 @@ type Props = {
 };
 
 export default function PostFeed({ posts, admin }: Props) {
-    console.log(posts);
     return posts ? (
         <>
             {posts.map((post: PostModel) => (
