@@ -7,7 +7,7 @@ type Props = {
     user: UserModel;
 };
 
-export default function UserProfile({ user }) {
+export default function UserProfile({ user }: Props) {
     return (
         <div className="flex flex-col flex-nowraps items-center">
             <div className="border-2 border-blue-500 rounded-full flex">

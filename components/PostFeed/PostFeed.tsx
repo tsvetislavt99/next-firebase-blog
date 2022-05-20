@@ -4,7 +4,6 @@ import { PostModel } from '../../lib/globalTypes';
 
 type Props = {
     posts: PostModel[];
-    //Temporary set to any until admin functionality is implemented
     admin?: boolean;
 };
 
@@ -20,7 +19,7 @@ export default function PostFeed({ posts, admin }: Props) {
 }
 
 function PostItem({ post, admin }) {
-    // Naive method to calc word count and read time
+    // Naive method to calculate word count and read time
     const wordCount = post?.content.trim().split(/\s+/g).length;
     const minutesToRead = (wordCount / 100 + 1).toFixed(0);
 
