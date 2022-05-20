@@ -1,13 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
-import { signOut } from 'firebase/auth';
+import { signOut, User } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useContext } from 'react';
 import { UserContext } from '../../lib/context';
 
 export default function Navbar() {
     const { user, username, loading } = useContext(UserContext);
+    const isGuest = username ? false : true;
 
     return (
         <nav className="mx-6 sm:mx-12 md:mx-24 lg:mx-36 my-4">
@@ -22,7 +23,7 @@ export default function Navbar() {
                 {loading ? null : (
                     <>
                         <UserContent user={user} username={username} />
-                        <GuestContent username={username} />
+                        <GuestContent isGuest={isGuest} />
                     </>
                 )}
             </ul>
@@ -30,8 +31,12 @@ export default function Navbar() {
     );
 }
 
-function GuestContent({ username }) {
-    if (!username) {
+type GuestContentProps = {
+    isGuest: boolean;
+};
+
+function GuestContent({ isGuest }: GuestContentProps) {
+    if (isGuest) {
         return (
             <li>
                 <Link href="/enter">
@@ -46,7 +51,12 @@ function GuestContent({ username }) {
     }
 }
 
-function UserContent({ user, username }) {
+type UserContentProps = {
+    user: User;
+    username: string;
+};
+
+function UserContent({ user, username }: UserContentProps) {
     if (user && username) {
         return (
             <>
