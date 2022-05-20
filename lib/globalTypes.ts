@@ -1,5 +1,5 @@
 import { User } from 'firebase/auth';
-import { Timestamp } from 'firebase/firestore';
+import { FieldValue, Timestamp } from 'firebase/firestore';
 
 export type UserContextParams = {
     user: User | null;
@@ -11,6 +11,7 @@ export type UserModel = {
     displayName: string;
     photoURL: string;
     username: string;
+    uid: string;
 };
 
 export type PostModel = {
@@ -21,6 +22,6 @@ export type PostModel = {
     uid: string;
     username: string;
     heartCount: number;
-    createdAt: Timestamp;
-    updatedAt: Timestamp;
+    createdAt: Timestamp | FieldValue;
+    updatedAt: Timestamp | FieldValue;
 };

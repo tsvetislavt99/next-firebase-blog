@@ -7,7 +7,7 @@ import {
     getPostsWithLimit,
 } from '../lib/firebase';
 import { PostModel } from '../lib/globalTypes';
-import { Timestamp } from 'firebase/firestore';
+import { FieldValue, Timestamp } from 'firebase/firestore';
 
 const LIMIT = 1;
 
@@ -35,7 +35,7 @@ export default function Home(props: Props) {
         const lastPost = posts[posts.length - 1];
 
         //Check the format of createdAt propery
-        const lastPostTimestamp: Timestamp =
+        const lastPostTimestamp: Timestamp | FieldValue =
             typeof lastPost.createdAt === 'number'
                 ? fromMillis(lastPost.createdAt)
                 : lastPost.createdAt;

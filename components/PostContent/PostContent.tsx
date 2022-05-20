@@ -1,3 +1,4 @@
+import { Timestamp } from 'firebase/firestore';
 import Link from 'next/link';
 import ReactMarkdown from 'react-markdown';
 import { PostModel } from '../../lib/globalTypes';
@@ -11,7 +12,7 @@ export default function PostContent({ post }: Props) {
     const createdAt =
         typeof post?.createdAt === 'number'
             ? new Date(post.createdAt)
-            : post.createdAt.toDate();
+            : (post.createdAt! as Timestamp).toDate();
 
     return (
         <div className="flex flex-col flex-nowrap items-center bg-white w-5/6 mx-auto mt-20">

@@ -8,11 +8,13 @@ import {
     where,
     limit,
     orderBy,
-    getDoc,
     DocumentSnapshot,
     Timestamp,
     collectionGroup,
     startAfter,
+    setDoc,
+    doc,
+    FieldValue,
 } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 import { PostModel } from './globalTypes';
@@ -43,11 +45,18 @@ export default firebaseConfig;
  *
  * @param {DocumentSnapshot} doc
  */
-export function postToJSON(doc: DocumentSnapshot) {
+export function postToJSON(doc: DocumentSnapshot): PostModel {
     const data = doc.data();
 
+    //Destructuring the data creates a problem with types
     return {
-        ...data,
+        title: data.title,
+        content: data.content,
+        published: data.published,
+        slug: data.slug,
+        uid: data.uid,
+        username: data.username,
+        heartCount: data.heartCount,
         createdAt: data.createdAt.toMillis(),
         updatedAt: data.updatedAt.toMillis(),
     };
@@ -72,6 +81,7 @@ export async function getUserWithUsername(username: string) {
 /**
  * Get user/{uid}/posts/* documents by a passed uid
  * @param {string} uid the uid of the user you want to get the posts from
+ * @returns Posts by this user as JSON valid objects
  */
 export async function getPostsByUser(uid: string) {
     const userPostsRef = collection(firestore, `/users/${uid}/posts`);
@@ -127,7 +137,7 @@ export async function getPostsWithLimit(postsLimit: number) {
  */
 export async function getPostsStartingFromWithLimit(
     postsLimit: number,
-    lastPostTimestamp: Timestamp
+    lastPostTimestamp: Timestamp | FieldValue
 ) {
     const postsRef = collectionGroup(firestore, 'posts');
     const postsQuery = query(
@@ -156,11 +166,17 @@ export async function getPostByUsernameAndSlug(username: string, slug: string) {
         where('username', '==', username),
         limit(1)
     );
-
-    //Temporary putting any until I revision pages/index.tsx:49
-    const post: any = (await getDocs(postQuery)).docs[0];
+    const post = (await getDocs(postQuery)).docs[0];
 
     return postToJSON(post);
+}
+
+export async function createDocument(
+    path: string,
+    slug: string,
+    data: PostModel
+) {
+    await setDoc(doc(firestore, `${path}/${slug}`), data);
 }
 
 export const fromMillis = Timestamp.fromMillis;

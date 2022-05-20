@@ -1,4 +1,4 @@
-import { collection, doc, onSnapshot } from 'firebase/firestore';
+import { doc, onSnapshot } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from './firebase';
@@ -10,7 +10,7 @@ import { auth, firestore } from './firebase';
 export const useUserData = () => {
     //Get current user if such from FB
     const [user] = useAuthState(auth);
-    const [username, setUsername] = useState<string | null>();
+    const [username, setUsername] = useState<string>();
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {

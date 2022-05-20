@@ -46,7 +46,7 @@ export async function getStaticProps({ params }: Cntx) {
 export async function getStaticPaths() {
     const posts = await getAllPosts();
     //Temporary putting any until I revision pages/index.tsx:49
-    const paths = posts.map((post: any) => {
+    const paths = posts.map((post: PostModel) => {
         const { slug, username } = post;
         return {
             params: { username, slug },

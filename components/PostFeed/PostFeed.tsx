@@ -5,10 +5,11 @@ import { PostModel } from '../../lib/globalTypes';
 type Props = {
     posts: PostModel[];
     //Temporary set to any until admin functionality is implemented
-    admin?: any;
+    admin?: boolean;
 };
 
 export default function PostFeed({ posts, admin }: Props) {
+    console.log(posts);
     return posts ? (
         <>
             {posts.map((post: PostModel) => (

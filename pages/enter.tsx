@@ -1,6 +1,7 @@
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { useContext, useEffect, useState } from 'react';
@@ -9,7 +10,7 @@ import { getDoc, doc, writeBatch } from 'firebase/firestore';
 
 export default function Enter() {
     const { user, username } = useContext(UserContext);
-
+    const router = useRouter();
     //Content to be shown if the user is a guest and has not started the registration proccess
     const guestContent: JSX.Element = (
         <div className="flex flex-col justify-between items-center my-5">
@@ -34,6 +35,10 @@ export default function Enter() {
             <SignInButton />
         </div>
     );
+
+    if (user && username) {
+        router.push('/');
+    }
 
     return (
         <main>
