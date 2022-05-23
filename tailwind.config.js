@@ -3,10 +3,19 @@ module.exports = {
         './pages/**/*.{js,ts,jsx,tsx}',
         './components/**/*.{js,ts,jsx,tsx}',
     ],
+    darkMode: 'class',
     theme: {
-        typography: (theme) => ({}),
-        extend: {},
+        extend: {
+            backgroundImage: {
+                moon: "url('/images/icons/moon.svg')",
+                sun: "url('/images/icons/sun.svg')",
+                stars: "url('/images/icons/stars.svg')",
+                clouds: "url('/images/icons/clouds.svg')",
+            },
+            boxShadow: {
+                glow: '0 0 2px 2px rgb(0,0,0,0.1)',
+            },
+        },
     },
     variants: {},
-    plugins: [require('@tailwindcss/typography')],
 };
