@@ -1,33 +1,119 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
+import { MenuIcon, XIcon, CodeIcon } from '@heroicons/react/solid';
 import { signOut, User } from 'firebase/auth';
 import { auth } from '../../lib/firebase';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { UserContext } from '../../lib/context';
+import ThemeToggler from '../ThemeToggler/ThemeToggler';
 
 export default function Navbar() {
     const { user, username, loading } = useContext(UserContext);
+    const [nav, setNav] = useState(false);
+
     const isGuest = username ? false : true;
 
+    //Toggle/Close mobile navigation
+    const handleNav = () => {
+        setNav((currState) => !currState);
+    };
+
     return (
-        <nav className="mx-6 sm:mx-12 md:mx-24 lg:mx-36 my-4">
-            <ul className="flex flex-row flex-nowrap justify-between items-center">
-                <li>
-                    <Link href="/">
-                        <button className="text-white text-lg sm:text-2xl font-bold bg-black px-2 py-1 sm:px-4 sm:py-2 rounded-md">
-                            FEED
-                        </button>
-                    </Link>
-                </li>
-                {loading ? null : (
-                    <>
-                        <UserContent user={user} username={username} />
-                        <GuestContent isGuest={isGuest} />
-                    </>
-                )}
-            </ul>
-        </nav>
+        <header className="flex flex-row justify-between items-start sm:mt-5 sm:w-5/6 mx-auto">
+            <div className="flex flex-row flex-nowrap justify-between items-center mt-5 ml-4 z-10">
+                <Link href="/">
+                    <CodeIcon className="h-8 w-8" />
+                </Link>
+            </div>
+            {
+                //Mobile navigation
+            }
+            <div className="sm:hidden flex flex-row justify-between mt-4 mr-4  z-10">
+                <div
+                    className={
+                        nav
+                            ? 'fixed left-0 top-0 w-4/6 h-screen border-r border-[#FFC929] ease-out duration-700 bg-gradient-to-r from-slate-50/100 dark:from-[#090A0D] to-gray-200 dark:to-gray-900 '
+                            : 'fixed left-[-100%]'
+                    }
+                >
+                    <ul className="font-mono mt-4 ml-4 ">
+                        <li className="mb-16">
+                            <CodeIcon className="h-8 w-8" />
+                        </li>
+                        <li className="mb-3">
+                            <Link href="/">Home</Link>
+                        </li>
+                        {user && username && (
+                            <>
+                                <li className="mb-3">Write</li>
+                                <li className="mb-3">My posts</li>
+                                <li className="mb-3">
+                                    <Link href={`/${username}`}>Profile</Link>
+                                </li>
+                                <li>
+                                    <SignOutButton />
+                                </li>
+                            </>
+                        )}
+                        {isGuest && (
+                            <>
+                                <li className="mb-3">
+                                    <Link href="/enter">Sign in</Link>
+                                </li>
+                            </>
+                        )}
+                    </ul>
+                </div>
+                <div className="flex flex-row flex-nowrap">
+                    <ThemeToggler mobile={true} />
+                    <div onClick={handleNav} className="ml-2 block sm:hidden">
+                        {nav ? (
+                            <XIcon className="h-8 w-8" />
+                        ) : (
+                            <MenuIcon className="h-8 w-8" />
+                        )}
+                    </div>
+                </div>
+            </div>
+            {
+                //Desktop navigation
+            }
+            <div className="hidden sm:flex flex-row flex-nowrap justify-between items-center w-full mt-5">
+                <ul className="flex flex-row flex-nowrap items-center">
+                    <li className="ml-3 lg:ml-16 mx-3 z-10">
+                        <Link href="/">Home</Link>
+                    </li>
+                    {user && username && (
+                        <>
+                            <li className="mx-3 z-10">Write</li>
+                            <li className="mx-3 z-10">
+                                <Link href={`/admin`}>My posts</Link>
+                            </li>
+                            <li className="mx-3 z-10">
+                                <Link href={`/${username}`}>Profile</Link>
+                            </li>
+
+                            <li className="mx-3 z-10">
+                                <SignOutButton />
+                            </li>
+                        </>
+                    )}
+                    {isGuest && (
+                        <>
+                            <li className="mx-3 z-10">
+                                <Link href="/enter">Sign in</Link>
+                            </li>
+                        </>
+                    )}
+                </ul>
+                <div className="flex flex-row flex-nowrap items-center z-10">
+                    <span className="hidden xl:block">Theme:</span>
+                    <ThemeToggler mobile={false} />
+                </div>
+            </div>
+            <div className="absolute top-[43px] sm:top-[60px] left-0 w-full bg-dividerLight dark:bg-dividerDark h-40 -z-1" />
+        </header>
     );
 }
 
@@ -39,50 +125,8 @@ function GuestContent({ isGuest }: GuestContentProps) {
     if (isGuest) {
         return (
             <li>
-                <Link href="/enter">
-                    <button className="text-white font-bold bg-blue-500 text-sm px-2 py-1 sm:px-4 sm:py-3 sm:text-base rounded-md">
-                        Log in
-                    </button>
-                </Link>
+                <Link href="/enter">Sign in</Link>
             </li>
-        );
-    } else {
-        return null;
-    }
-}
-
-type UserContentProps = {
-    user: User;
-    username: string;
-};
-
-function UserContent({ user, username }: UserContentProps) {
-    if (user && username) {
-        return (
-            <>
-                <li className="flex flex-row flex-nowrap items-center">
-                    <Link href="/admin">
-                        <button className="text-white font-bold bg-blue-500 text-xs px-2 py-1 sm:text-base sm:px-3 sm:py-2 rounded-md">
-                            Create a Post
-                        </button>
-                    </Link>
-                    <SignOutButton />
-                    <Link href={`/${username}`}>
-                        <a className="flex items-center border-blue-500 border-2 sm:border-4 rounded-full ml-4 w-6 h-6 sm:w-12 sm:h-12">
-                            <Image
-                                className="rounded-full p-0 m-0"
-                                src={
-                                    user?.photoURL ||
-                                    'https://hatrabbits.com/wp-content/uploads/2017/01/random.jpg'
-                                }
-                                alt="Profile photo"
-                                width={40}
-                                height={40}
-                            />
-                        </a>
-                    </Link>
-                </li>
-            </>
         );
     } else {
         return null;
@@ -104,10 +148,7 @@ function SignOutButton() {
     };
 
     return (
-        <button
-            className="flex flex-row flex-nowrap justify-center bg-gray-200 px-2 py-2 rounded-md hover:bg-gray-300 ml-3"
-            onClick={handleSignOut}
-        >
+        <button className="" onClick={handleSignOut}>
             <p className="text-center">Sign Out</p>
         </button>
     );
