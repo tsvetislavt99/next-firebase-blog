@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 import { SunIcon, MoonIcon } from '@heroicons/react/solid';
 import Image from 'next/image';
 
@@ -6,14 +6,15 @@ type Props = {
     mobile: boolean;
 };
 
-export default function ThemeToggler({ mobile }) {
-    const [darkMode, setDarkMode] = useState<boolean>(null);
+export default function ThemeToggler({ mobile }: Props) {
+    const [darkMode, setDarkMode] = useState<boolean>();
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (localStorage.getItem('nextBlogDarkTheme') === 'true') {
             setDarkMode(true);
         }
     }, []);
+
     useEffect(() => {
         if (darkMode) {
             window.document.documentElement.classList.add('dark');
