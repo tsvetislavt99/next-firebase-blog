@@ -45,7 +45,6 @@ export default function Home(props: Props) {
             lastPostTimestamp
         );
 
-        //TODO: Revision tomorrow
         setPosts(posts.concat(newPosts));
         setIsLoading(false);
 
@@ -54,21 +53,6 @@ export default function Home(props: Props) {
         }
     };
 
-    return (
-        <main className="bg-gray-200 h-screen">
-            <div className="my-14 flex flex-col items-center">
-                <PostFeed posts={posts} />
-                <Loader show={isLoading} classNames="" />
-                {!isLoading && !postsEnd && (
-                    <button
-                        onClick={getMorePosts}
-                        className="py-1 px-4 bg-blue-50 rounded-lg border border-blue-200 hover:scale-105 transition ease-in-out duration-50"
-                    >
-                        Load more
-                    </button>
-                )}
-                {postsEnd && <p>You have reach the end of posts {':('}</p>}
-            </div>
-        </main>
-    );
+    //Temporary for testing purposes
+    return <main className="h-[2000px] w-full bg-white"></main>;
 }

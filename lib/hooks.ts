@@ -4,7 +4,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, firestore } from './firebase';
 
 /**
- *
  * @returns a firebase/auth User object, the username of that User and a boolean value to indicate the loading state
  */
 export const useUserData = () => {

@@ -47,7 +47,9 @@ export default function Navbar() {
                         {user && username && (
                             <>
                                 <li className="mb-3">Write</li>
-                                <li className="mb-3">My posts</li>
+                                <li className="mb-3">
+                                    <Link href={`/admin`}>My posts</Link>
+                                </li>
                                 <li className="mb-3">
                                     <Link href={`/${username}`}>Profile</Link>
                                 </li>
@@ -80,21 +82,23 @@ export default function Navbar() {
                 //Desktop navigation
             }
             <div className="hidden sm:flex flex-row flex-nowrap justify-between items-center w-full mt-5">
-                <ul className="flex flex-row flex-nowrap items-center">
-                    <li className="ml-3 lg:ml-16 mx-3 z-10">
+                <ul className="flex flex-row flex-nowrap items-center font-mono">
+                    <li className="ml-3 lg:ml-16 mx-3 z-10 hover:text-white">
                         <Link href="/">Home</Link>
                     </li>
                     {user && username && (
                         <>
-                            <li className="mx-3 z-10">Write</li>
-                            <li className="mx-3 z-10">
+                            <li className="mx-3 z-10 hover:text-white select-none">
+                                Write
+                            </li>
+                            <li className="mx-3 z-10 hover:text-white">
                                 <Link href={`/admin`}>My posts</Link>
                             </li>
-                            <li className="mx-3 z-10">
+                            <li className="mx-3 z-10 hover:text-white">
                                 <Link href={`/${username}`}>Profile</Link>
                             </li>
 
-                            <li className="mx-3 z-10">
+                            <li className="mx-3 z-10 hover:text-white">
                                 <SignOutButton />
                             </li>
                         </>
@@ -108,7 +112,7 @@ export default function Navbar() {
                     )}
                 </ul>
                 <div className="flex flex-row flex-nowrap items-center z-10">
-                    <span className="hidden xl:block">Theme:</span>
+                    <span className="hidden xl:block font-mono">Theme:</span>
                     <ThemeToggler mobile={false} />
                 </div>
             </div>

@@ -8,8 +8,10 @@ type Props = {
 
 export default function ThemeToggler({ mobile }: Props) {
     const [darkMode, setDarkMode] = useState<boolean>();
+    const useIsomorphicLayoutEffect =
+        typeof window !== 'undefined' ? useLayoutEffect : useEffect;
 
-    useLayoutEffect(() => {
+    useIsomorphicLayoutEffect(() => {
         if (localStorage.getItem('nextBlogDarkTheme') === 'true') {
             setDarkMode(true);
         }
