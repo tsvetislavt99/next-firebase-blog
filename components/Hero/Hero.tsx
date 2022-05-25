@@ -11,7 +11,7 @@ export default function Hero({ latestPosts }: Props) {
     return (
         <>
             <div className="w-full bg-[#FFC929] dark:bg-[#090A0D]">
-                <section className="grid grid-rows-5 sm:grid-rows-4 grid-cols-3 gap-2 mx-5 sm:mx-16 xl:mx-32 mt-5">
+                <section className="grid grid-rows-5 sm:grid-rows-4 grid-cols-3 gap-2 mx-5 sm:mx-16 xl:mx-44 mt-5">
                     <div className="col-span-full sm:col-span-1 row-span-1 sm:row-span-full">
                         <h1 className="font-sans font-bold text-3xl my-3 hover:text-white hover:underline select-none">
                             Next.js 12: Biggest Release Ever
@@ -36,7 +36,7 @@ export default function Hero({ latestPosts }: Props) {
                         </p>
                     </div>
                     <div className="col-span-full sm:col-start-2 sm:col-end-2 row-start-2 row-end-4 sm:row-span-full">
-                        <div className="relative h-[40vh] sm:h-full sm:w-full sm:mt-2 md:mt-0">
+                        <div className="relative h-[40vh] sm:h-full sm:w-full sm:-mt-5 md:mt-0">
                             <Image
                                 priority
                                 className="object-contain"
@@ -44,8 +44,8 @@ export default function Hero({ latestPosts }: Props) {
                                 layout="fill"
                                 alt="logo of Next.js"
                             />
-                            <div className="z-10 absolute -bottom-1 sm:-left-1 text-sm hover:text-white">
-                                <p className="flex flex-row flex-nowrap text-xs items-center bg-[#FFC929] dark:bg-[#090A0D] px-2 py-4 cursor-pointer">
+                            <div className="z-10 absolute left-0 right-0 bottom-0 mx-auto text-sm hover:text-white">
+                                <p className="flex flex-row flex-nowrap text-xs justify-center items-center bg-[#FFC929] dark:bg-[#090A0D] px-2 py-4 cursor-pointer">
                                     Go to Next.js official website
                                     <ArrowRightIcon className="h-3 w-3 ml-1" />
                                 </p>

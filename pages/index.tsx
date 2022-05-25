@@ -10,7 +10,7 @@ import { PostModel } from '../lib/globalTypes';
 import { FieldValue, Timestamp } from 'firebase/firestore';
 import Hero from '../components/Hero/Hero';
 
-const LIMIT = 10;
+const LIMIT = 6;
 export async function getServerSideProps() {
     const posts = await getPostsWithLimit(LIMIT);
 
@@ -55,6 +55,9 @@ export default function Home(props: Props) {
     return (
         <main className="bg-white dark:bg-black">
             <Hero latestPosts={posts.slice(0, 3)} />
+            <h2 className="text-center text-xl font-mono font-semibold underline">
+                All Posts
+            </h2>
             <PostFeed posts={posts} />
         </main>
     );
