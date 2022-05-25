@@ -29,7 +29,7 @@ function PostItem({ post, admin }) {
             : (post.createdAt! as Timestamp).toDate();
 
     return (
-        <div className="row-span-1 sm:col-span-1 flex flex-col flex-nowrap w-4/5 mx-auto mb-3 p-2 border border-[#FFC929] dark:border-yellow-600 rounded-md">
+        <div className="row-span-1 sm:col-span-1 flex flex-col flex-nowrap w-4/5 mx-auto mb-3 p-2 border-r-2 border-[#FFC929] dark:border-yellow-600">
             <Link href={`/${post.username}`}>
                 <a className="font-mono hover:child:text-blue-500 text-xs">
                     By <span>@{post.username}</span>
@@ -42,7 +42,7 @@ function PostItem({ post, admin }) {
                 </h2>
             </Link>
 
-            <footer className="flex flex-row justify-between text-xs cursor-default">
+            <footer className="flex flex-row justify-between text-xs cursor-default pr-2">
                 <span>~{minutesToRead} min read</span>
                 <span>
                     {createdAt
