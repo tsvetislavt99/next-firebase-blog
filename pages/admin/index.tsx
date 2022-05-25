@@ -1,22 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import toast from 'react-hot-toast';
+import { useEffect, useState } from 'react';
 import RouteGuard from '../../components/RouteGuard/RouteGuard';
 import PostFeed from '../../components/PostFeed/PostFeed';
-import { UserContext } from '../../lib/context';
 import { auth, getPostsByUser, createDocument } from '../../lib/firebase';
-import { kebabize } from '../../lib/utils';
-import { serverTimestamp } from 'firebase/firestore';
 import { PostModel } from '../../lib/globalTypes';
 
-export default function AdminPostsPage(props) {
+export default function AdminPostsPage() {
     return (
         <main>
             <RouteGuard>
-                <>
+                <section className="bg-gray-300 dark:bg-gray-800 pt-5">
                     <PostList />
-                    <CreateNewPost />
-                </>
+                </section>
             </RouteGuard>
         </main>
     );
@@ -43,58 +37,8 @@ function PostList() {
 
     return (
         <>
-            <h1>Manage your Posts</h1>
+            <h1 className="text-center text-lg font-mono">Manage your Posts</h1>
             <PostFeed posts={posts} admin />
         </>
-    );
-}
-
-function CreateNewPost() {
-    const router = useRouter();
-    const { username } = useContext(UserContext);
-    const [title, setTitle] = useState<string>('');
-
-    // Ensure slug is URL safe
-    const slug = encodeURI(kebabize(title));
-
-    // Validate length
-    const isValid = title.length > 3 && title.length < 100;
-
-    // Create a new post in firestore
-    const createPost = async (e: React.SyntheticEvent) => {
-        e.preventDefault();
-        const uid = auth.currentUser.uid;
-        const path = `users/${uid}/posts`;
-        const data: PostModel = {
-            title,
-            slug,
-            uid,
-            username,
-            published: false,
-            content: '# hello world!',
-            createdAt: serverTimestamp(),
-            updatedAt: serverTimestamp(),
-            heartCount: 0,
-        };
-        await createDocument(path, slug, data);
-        toast.success('Post created!');
-
-        router.push(`/admin/${slug}`);
-    };
-
-    return (
-        <form onSubmit={createPost}>
-            <input
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                placeholder="My Awesome Article!"
-            />
-            <p>
-                <strong>Slug:</strong> {slug}
-            </p>
-            <button type="submit" disabled={!isValid} className="">
-                Create New Post
-            </button>
-        </form>
     );
 }

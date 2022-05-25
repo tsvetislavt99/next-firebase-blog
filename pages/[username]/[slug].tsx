@@ -30,7 +30,6 @@ export async function getStaticProps({ params }: Cntx) {
     }
 
     if (userData) {
-        //Related to pages/index.tsx:49
         post = await getPostByUsernameAndSlug(username, slug);
     }
 
@@ -45,7 +44,6 @@ export async function getStaticProps({ params }: Cntx) {
 
 export async function getStaticPaths() {
     const posts = await getAllPosts();
-    //Temporary putting any until I revision pages/index.tsx:49
     const paths = posts.map((post: PostModel) => {
         const { slug, username } = post;
         return {
@@ -67,13 +65,10 @@ export default function PostPage({ post, postPath }) {
     const postEl = realtimePost || post;
 
     return (
-        <main className="">
+        <main>
             <section>
                 <PostContent post={postEl} />
             </section>
-            <aside>
-                <strong>{post.heartCount || 0} 🤍</strong>
-            </aside>
         </main>
     );
 }

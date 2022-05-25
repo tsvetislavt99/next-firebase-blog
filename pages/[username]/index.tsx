@@ -38,7 +38,7 @@ type Props = {
 
 export default function ProfilePage({ user, posts }: Props) {
     return (
-        <main className="mt-10 pt-5 bg-gray-200 h-screen">
+        <main className="mt-10 pt-5 bg-gray-300 dark:bg-gray-800 ">
             <UserProfile user={user} />
             <PostFeed posts={posts} admin={false} />
         </main>

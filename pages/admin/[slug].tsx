@@ -33,9 +33,33 @@ function PostManager() {
         <main className="">
             {post && (
                 <>
-                    <section>
-                        <h1>{post.title}</h1>
-                        <p>ID: {post.slug}</p>
+                    <section className="flex flex-col flex-nowrap w-11/12 sm:w-5/6 mx-auto mt-5 bg-gray-50 dark:bg-gray-500 p-3 rounded-lg">
+                        <section className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-5">
+                            <div>
+                                <h1 className="font-mono font-semibold text-xl">
+                                    {post.title}
+                                </h1>
+                                <p className="text-xs font-semibold">
+                                    Slug:{' '}
+                                    <span className="font-mono font-extralight">
+                                        {post.slug}
+                                    </span>
+                                </p>
+                            </div>
+                            <aside className="flex flex-col flex-nowrap items-start mt-5 sm:mt-0">
+                                <button
+                                    className="px-2 py-1 text-sm rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 mb-2"
+                                    onClick={() => setPreview(!preview)}
+                                >
+                                    {preview ? 'Edit' : 'Preview'}
+                                </button>
+                                <Link href={`/${post.username}/${post.slug}`}>
+                                    <button className="px-2 py-1 text-xs rounded-lg bg-green-500 dark:bg-[#090A0D] dark:text-green-500 border-1 border-yellow-600">
+                                        Live view
+                                    </button>
+                                </Link>
+                            </aside>
+                        </section>
 
                         <PostForm
                             postRef={postRef}
@@ -43,16 +67,6 @@ function PostManager() {
                             preview={preview}
                         />
                     </section>
-
-                    <aside>
-                        <h3>Tools</h3>
-                        <button onClick={() => setPreview(!preview)}>
-                            {preview ? 'Edit' : 'Preview'}
-                        </button>
-                        <Link href={`/${post.username}/${post.slug}`}>
-                            <button className="btn-blue">Live view</button>
-                        </Link>
-                    </aside>
                 </>
             )}
         </main>
@@ -78,30 +92,42 @@ function PostForm({ defaultValues, postRef, preview }) {
     };
 
     return (
-        <form onSubmit={handleSubmit(updatePost)}>
-            {preview && (
-                <div className="card">
-                    <ReactMarkdown>{watch('content')}</ReactMarkdown>
+        <div>
+            <form onSubmit={handleSubmit(updatePost)}>
+                <div className="flex flex-col items-center">
+                    <textarea
+                        className="w-full h-screen focus:outline-none border border-gray-300 p-2"
+                        name="content"
+                        {...register('content')}
+                    ></textarea>
+
+                    <fieldset>
+                        <input
+                            className="accent-[#FFC929]"
+                            name="published"
+                            type="checkbox"
+                            {...register('published')}
+                        />
+                        <label className="mt-1">Publish</label>
+                    </fieldset>
+
+                    <button
+                        type="submit"
+                        className="px-2 py-1 text-sm rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 my-2"
+                    >
+                        Save Changes
+                    </button>
+                    {preview && (
+                        <div className="">
+                            <article className="prose dark:prose-invert">
+                                <ReactMarkdown>
+                                    {watch('content')}
+                                </ReactMarkdown>
+                            </article>
+                        </div>
+                    )}
                 </div>
-            )}
-
-            <div className="">
-                <textarea name="content" {...register('content')}></textarea>
-
-                <fieldset>
-                    <input
-                        className=""
-                        name="published"
-                        type="checkbox"
-                        {...register('published')}
-                    />
-                    <label>Published</label>
-                </fieldset>
-
-                <button type="submit" className="btn-green">
-                    Save Changes
-                </button>
-            </div>
-        </form>
+            </form>
+        </div>
     );
 }

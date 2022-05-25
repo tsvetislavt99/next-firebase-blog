@@ -43,7 +43,9 @@ export default function Navbar() {
                         </li>
                         {user && username && (
                             <>
-                                <li className="mb-3">Write</li>
+                                <li className="mb-3">
+                                    <Link href="/create">Write</Link>
+                                </li>
                                 <li className="mb-3">
                                     <Link href={`/admin`}>My posts</Link>
                                 </li>
@@ -83,7 +85,7 @@ export default function Navbar() {
                     {user && username && (
                         <>
                             <li className="ml-6 mr-3 z-10 hover:text-white select-none">
-                                Write
+                                <Link href="/create">Write</Link>
                             </li>
                             <li className="mx-3 z-10 hover:text-white">
                                 <Link href={`/admin`}>My posts</Link>

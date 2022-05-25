@@ -9,8 +9,8 @@ type Props = {
 
 export default function UserProfile({ user }: Props) {
     return (
-        <div className="flex flex-col flex-nowraps items-center">
-            <div className="border-2 border-blue-500 rounded-full flex">
+        <div className="flex flex-row sm:flex-col flex-nowraps items-center justify-between mx-5">
+            <div className="border-2 border-yellow-500 dark:border-yellow-700 rounded-full flex">
                 <Image
                     className="rounded-full"
                     src={user.photoURL}
@@ -19,10 +19,12 @@ export default function UserProfile({ user }: Props) {
                     alt="profile photo"
                 />
             </div>
-            <p>
-                <i>@{user.username}</i>
-            </p>
-            <h1>{user.displayName}</h1>
+            <div>
+                <p>
+                    <i>@{user.username}</i>
+                </p>
+                <h1>{user.displayName}</h1>
+            </div>
         </div>
     );
 }

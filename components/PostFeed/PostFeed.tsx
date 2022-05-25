@@ -55,19 +55,18 @@ function PostItem({ post, admin }) {
 
             {/* If admin view, show extra controls for user (styles not implemented yet) */}
             {admin && (
-                <>
+                <section className="text-xs mt-3 flex flex-row flex-nowrap justify-between">
                     <Link href={`/admin/${post.slug}`}>
                         <h3>
                             <button className="">Edit</button>
                         </h3>
                     </Link>
-
                     {post.published ? (
-                        <p className="">Live</p>
+                        <p className="">Status: Live</p>
                     ) : (
-                        <p className="">Unpublished</p>
+                        <p className="">Status: Unpublished</p>
                     )}
-                </>
+                </section>
             )}
         </div>
     );
