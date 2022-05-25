@@ -11,8 +11,8 @@ module.exports = {
                 sun: "url('/images/icons/sun.svg')",
                 stars: "url('/images/icons/stars.svg')",
                 clouds: "url('/images/icons/clouds.svg')",
-                dividerLight: "url('/images/icons/dividerLight.svg')",
-                dividerDark: "url('/images/icons/dividerDark.svg')",
+                dividerLight: "url('/images/triangleAsymmetricalLight.svg')",
+                dividerDark: "url('/images/triangleAsymmetricalDark.svg')",
             },
             boxShadow: {
                 glow: '0 0 2px 2px rgb(0,0,0,0.1)',

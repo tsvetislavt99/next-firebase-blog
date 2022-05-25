@@ -20,7 +20,7 @@ export default function Navbar() {
     };
 
     return (
-        <header className="flex flex-row justify-between items-start sm:mt-5 sm:w-5/6 mx-auto">
+        <header className="flex flex-row justify-between items-start sm:mt-5 sm:w-5/6 mx-auto pb-5">
             <div className="flex flex-row flex-nowrap justify-between items-center mt-5 ml-4 z-10">
                 <Link href="/">
                     <CodeIcon className="h-8 w-8" />
@@ -40,9 +40,6 @@ export default function Navbar() {
                     <ul className="font-mono mt-4 ml-4 ">
                         <li className="mb-16">
                             <CodeIcon className="h-8 w-8" />
-                        </li>
-                        <li className="mb-3">
-                            <Link href="/">Home</Link>
                         </li>
                         {user && username && (
                             <>
@@ -83,12 +80,9 @@ export default function Navbar() {
             }
             <div className="hidden sm:flex flex-row flex-nowrap justify-between items-center w-full mt-5">
                 <ul className="flex flex-row flex-nowrap items-center font-mono">
-                    <li className="ml-3 lg:ml-16 mx-3 z-10 hover:text-white">
-                        <Link href="/">Home</Link>
-                    </li>
                     {user && username && (
                         <>
-                            <li className="mx-3 z-10 hover:text-white select-none">
+                            <li className="ml-6 mr-3 z-10 hover:text-white select-none">
                                 Write
                             </li>
                             <li className="mx-3 z-10 hover:text-white">
@@ -116,7 +110,6 @@ export default function Navbar() {
                     <ThemeToggler mobile={false} />
                 </div>
             </div>
-            <div className="absolute top-[43px] sm:top-[60px] left-0 w-full bg-dividerLight dark:bg-dividerDark h-40 -z-1" />
         </header>
     );
 }
