@@ -38,7 +38,7 @@ export async function getStaticProps({ params }: Cntx) {
             post,
             postPath: `users/${userData.data().uid}/posts/${post.slug}`,
         },
-        revalidate: 5000,
+        revalidate: 120,
     };
 }
 

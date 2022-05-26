@@ -9,6 +9,7 @@ import {
 import { PostModel } from '../lib/globalTypes';
 import { FieldValue, Timestamp } from 'firebase/firestore';
 import Hero from '../components/Hero/Hero';
+import Modal from '../components/Modal/Modal';
 
 const LIMIT = 6;
 export async function getServerSideProps() {

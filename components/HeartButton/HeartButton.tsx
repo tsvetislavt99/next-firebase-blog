@@ -54,9 +54,13 @@ export default function Heart({ postRef }: Props) {
 
     // Remove a user-to-post relationship
     const removeHeart = async () => {
-        await updateDoc(postRef, { heartCount: increment(-1) });
-        await deleteDoc(doc(firestore, `${postRef.path}/hearts/${userId}`));
-        setHeartExsist(false);
+        try {
+            await updateDoc(postRef, { heartCount: increment(-1) });
+            await deleteDoc(doc(firestore, `${postRef.path}/hearts/${userId}`));
+            setHeartExsist(false);
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     return loading ? null : heartExsist ? (

@@ -9,6 +9,7 @@ import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
 import RouteGuard from '../../components/RouteGuard/RouteGuard';
 import { firestore, auth } from '../../lib/firebase';
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
+import Modal from '../../components/Modal/Modal';
 
 export default function AdminPostEdit() {
     return (
@@ -75,6 +76,9 @@ function PostManager() {
 }
 
 function PostForm({ defaultValues, postRef, preview }) {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const toggleModal = () => setIsModalOpen((state) => !state);
+
     const { register, handleSubmit, reset, watch } = useForm({
         defaultValues,
         mode: 'onChange',
@@ -94,6 +98,7 @@ function PostForm({ defaultValues, postRef, preview }) {
 
     return (
         <div>
+            <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
             <form onSubmit={handleSubmit(updatePost)}>
                 <div className="flex flex-col items-center sm:items-start">
                     <textarea
@@ -113,7 +118,8 @@ function PostForm({ defaultValues, postRef, preview }) {
                     </fieldset>
 
                     <button
-                        type="submit"
+                        //type="submit"
+                        onClick={() => setIsModalOpen(!isModalOpen)}
                         className="px-2 py-1 text-sm rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 my-2"
                     >
                         Save Changes

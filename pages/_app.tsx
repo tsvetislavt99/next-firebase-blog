@@ -1,5 +1,5 @@
 import { Toaster } from 'react-hot-toast';
-import { UserProvider } from '../lib/context';
+import { ModalProvider, UserProvider } from '../lib/context';
 import Navbar from '../components/Navbar/Navbar';
 import '../styles/globals.css';
 import { useUserData } from '../lib/hooks';
@@ -11,10 +11,12 @@ function MyApp({ Component, pageProps }) {
     return (
         <>
             <UserProvider value={userData}>
-                <Navbar />
-                <Component {...pageProps} />
-                <Toaster />
-                <Footer />
+                <ModalProvider>
+                    <Navbar />
+                    <Component {...pageProps} />
+                    <Toaster />
+                    <Footer />
+                </ModalProvider>
             </UserProvider>
         </>
     );
