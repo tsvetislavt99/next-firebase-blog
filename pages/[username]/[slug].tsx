@@ -67,7 +67,7 @@ export default function PostPage({ post, postPath }) {
     return (
         <main>
             <section>
-                <PostContent post={postEl} />
+                <PostContent post={postEl} postRef={postRef} />
             </section>
         </main>
     );

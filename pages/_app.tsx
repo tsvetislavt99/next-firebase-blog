@@ -3,6 +3,7 @@ import { UserProvider } from '../lib/context';
 import Navbar from '../components/Navbar/Navbar';
 import '../styles/globals.css';
 import { useUserData } from '../lib/hooks';
+import Footer from '../components/Footer/Footer';
 
 function MyApp({ Component, pageProps }) {
     const userData = useUserData();
@@ -13,6 +14,7 @@ function MyApp({ Component, pageProps }) {
                 <Navbar />
                 <Component {...pageProps} />
                 <Toaster />
+                <Footer />
             </UserProvider>
         </>
     );
