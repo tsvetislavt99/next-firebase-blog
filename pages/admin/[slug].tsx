@@ -49,13 +49,13 @@ function PostManager() {
                             </div>
                             <aside className="flex flex-col flex-nowrap items-start mt-5 sm:mt-0">
                                 <button
-                                    className="px-2 py-1 text-xs rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 mb-2"
+                                    className="py-0.5 px-1  mb-1 ml-2 text-sm rounded-md border border-yellow-300 dark:border-[#090A0D] hover:scale-105 duration-300"
                                     onClick={() => setPreview(!preview)}
                                 >
                                     {preview ? 'Hide' : 'Preview'}
                                 </button>
                                 <Link href={`/${post.username}/${post.slug}`}>
-                                    <button className="px-2 py-1 text-xs rounded-lg bg-green-500 dark:bg-[#090A0D] dark:text-green-500 border-1 border-yellow-600">
+                                    <button className="py-0.5 px-1 mb-1 ml-2 text-sm text-green-500 rounded-md border border-yellow-300 dark:border-[#090A0D] hover:scale-105 duration-300">
                                         Live view
                                     </button>
                                 </Link>

@@ -81,16 +81,31 @@ export async function getUserWithUsername(username: string) {
 /**
  * Get user/{uid}/posts/* documents by a passed uid
  * @param {string} uid the uid of the user you want to get the posts from
- * @returns Posts by this user as JSON valid objects
+ * @returns The published Posts by this user as JSON valid objects
  */
 export async function getPostsByUser(uid: string) {
     const userPostsRef = collection(firestore, `/users/${uid}/posts`);
     const postsByUserQuery = query(
         userPostsRef,
-        where('published', '==', false),
-        orderBy('createdAt', 'desc'),
-        limit(5)
+        where('published', '==', true),
+        orderBy('createdAt', 'desc')
     );
+
+    const sanitizedDocs = (await getDocs(postsByUserQuery)).docs.map(
+        postToJSON
+    );
+
+    return sanitizedDocs;
+}
+
+/**
+ * Get user/{uid}/posts/* documents by a passed uid
+ * @param {string} uid the uid of the user you want to get the posts from
+ * @returns Posts by this user as JSON valid objects
+ */
+export async function getAllPostsByUser(uid: string) {
+    const userPostsRef = collection(firestore, `/users/${uid}/posts`);
+    const postsByUserQuery = query(userPostsRef, orderBy('createdAt', 'desc'));
 
     const sanitizedDocs = (await getDocs(postsByUserQuery)).docs.map(
         postToJSON
@@ -119,7 +134,7 @@ export async function getPostsWithLimit(postsLimit: number) {
     const postsRef = collectionGroup(firestore, 'posts');
     const postsQuery = query(
         postsRef,
-        where('published', '==', false),
+        where('published', '==', true),
         orderBy('createdAt', 'desc'),
         limit(postsLimit)
     );
@@ -142,7 +157,7 @@ export async function getPostsStartingFromWithLimit(
     const postsRef = collectionGroup(firestore, 'posts');
     const postsQuery = query(
         postsRef,
-        where('published', '==', false),
+        where('published', '==', true),
         orderBy('createdAt', 'desc'),
         startAfter(lastPostTimestamp),
         limit(postsLimit)

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import RouteGuard from '../../components/RouteGuard/RouteGuard';
 import PostFeed from '../../components/PostFeed/PostFeed';
-import { auth, getPostsByUser, createDocument } from '../../lib/firebase';
+import { auth, getAllPostsByUser } from '../../lib/firebase';
 import { PostModel } from '../../lib/globalTypes';
 
 export default function AdminPostsPage() {
@@ -21,7 +21,7 @@ function PostList() {
     const [isLoading, setIsLoading] = useState<boolean>(true);
     useEffect(() => {
         const getPosts = async () => {
-            const postsArr = await getPostsByUser(auth.currentUser.uid);
+            const postsArr = await getAllPostsByUser(auth.currentUser.uid);
 
             setPosts(postsArr);
             setIsLoading(false);

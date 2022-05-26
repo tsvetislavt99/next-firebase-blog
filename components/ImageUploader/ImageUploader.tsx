@@ -1,9 +1,4 @@
-import {
-    getDownloadURL,
-    ref,
-    uploadBytes,
-    uploadBytesResumable,
-} from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { auth, storage } from '../../lib/firebase';
@@ -15,9 +10,9 @@ export default function ImageUploader() {
     const [downloadURL, setDownloadURL] = useState<string>(null);
 
     // Creates a Firebase Upload Task
-    const uploadFile = async (e) => {
+    const uploadFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
         // Get the file || Putting any temoporary
-        const file: any = Array.from(e.target.files)[0];
+        const file: File = Array.from(e.target.files)[0] as File;
         //Get the file extension
         const extension = file.type.split('/')[1];
 
