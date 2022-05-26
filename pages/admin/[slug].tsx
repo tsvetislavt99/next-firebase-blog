@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { useForm } from 'react-hook-form';
@@ -76,8 +76,15 @@ function PostManager() {
 }
 
 function PostForm({ defaultValues, postRef, preview }) {
+    //State and toggle for the modal
     const [isModalOpen, setIsModalOpen] = useState(false);
     const toggleModal = () => setIsModalOpen((state) => !state);
+
+    const submitRef = useRef<HTMLButtonElement>();
+
+    const handleConfirmFromModal = () => {
+        submitRef.current.click();
+    };
 
     const { register, handleSubmit, reset, watch } = useForm({
         defaultValues,
@@ -98,7 +105,11 @@ function PostForm({ defaultValues, postRef, preview }) {
 
     return (
         <div>
-            <Modal isOpen={isModalOpen} toggleModal={toggleModal} />
+            <Modal
+                isOpen={isModalOpen}
+                toggleModal={toggleModal}
+                callbackOnConfirm={handleConfirmFromModal}
+            />
             <form onSubmit={handleSubmit(updatePost)}>
                 <div className="flex flex-col items-center sm:items-start">
                     <textarea
@@ -118,12 +129,14 @@ function PostForm({ defaultValues, postRef, preview }) {
                     </fieldset>
 
                     <button
-                        //type="submit"
+                        type="button"
                         onClick={() => setIsModalOpen(!isModalOpen)}
                         className="px-2 py-1 text-sm rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 my-2"
                     >
                         Save Changes
                     </button>
+                    <button ref={submitRef} type="submit" className="hidden" />
+
                     {preview && (
                         <div className="">
                             <article className="prose dark:prose-invert">
