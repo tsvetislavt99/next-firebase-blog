@@ -13,10 +13,6 @@ module.exports = {
                 clouds: "url('/images/icons/clouds.svg')",
                 dividerLight: "url('/images/triangleAsymmetricalLight.svg')",
                 dividerDark: "url('/images/triangleAsymmetricalDark.svg')",
-                footerDividerLight:
-                    "url('/images/footerTriangleAsymmetricalLight.svg')",
-                footerDividerDark:
-                    "url('/images/footerTriangleAsymmetricalDark.svg')",
             },
             boxShadow: {
                 glow: '0 0 2px 2px rgb(0,0,0,0.1)',
