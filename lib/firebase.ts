@@ -171,6 +171,12 @@ export async function getPostByUsernameAndSlug(username: string, slug: string) {
     return postToJSON(post);
 }
 
+/**
+ *
+ * @param path the path where the new post should be saved in the Firebase DB
+ * @param slug the post slug
+ * @param data the Post entity with all of it's properties
+ */
 export async function createDocument(
     path: string,
     slug: string,

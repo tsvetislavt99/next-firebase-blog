@@ -20,7 +20,9 @@ export default function PostContent({ post }: Props) {
             <span className="text-xs mb-5 dark:text-white">
                 Written by{' '}
                 <Link href={`/${post.username}/`}>
-                    <a className="text-info">@{post.username}</a>
+                    <a className="font-mono hover:text-blue-500">
+                        @{post.username}
+                    </a>
                 </Link>{' '}
                 on {createdAt.toISOString().substring(0, 10)}
             </span>
