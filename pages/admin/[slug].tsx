@@ -5,11 +5,18 @@ import { useForm } from 'react-hook-form';
 import ReactMarkdown from 'react-markdown';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
-import { doc, serverTimestamp, updateDoc } from 'firebase/firestore';
+import {
+    deleteDoc,
+    doc,
+    DocumentReference,
+    serverTimestamp,
+    updateDoc,
+} from 'firebase/firestore';
 import RouteGuard from '../../components/RouteGuard/RouteGuard';
 import { firestore, auth } from '../../lib/firebase';
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import Modal from '../../components/Modal/Modal';
+import { PostModel } from '../../lib/globalTypes';
 
 export default function AdminPostEdit() {
     return (
@@ -75,15 +82,42 @@ function PostManager() {
     );
 }
 
-function PostForm({ defaultValues, postRef, preview }) {
-    //State and toggle for the modal
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const toggleModal = () => setIsModalOpen((state) => !state);
+type PostFormProps = {
+    defaultValues: PostModel;
+    postRef: DocumentReference;
+    preview: boolean;
+};
 
+function PostForm({ defaultValues, postRef, preview }: PostFormProps) {
+    const router = useRouter();
+
+    //State and toggle for the save changes modal
+    const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
+    const toggleSaveModal = () => {
+        setIsSaveModalOpen((state) => !state);
+    };
+
+    //State and toggle for the delete post modal
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const toggleDeleteModal = () => {
+        setIsSaveModalOpen((state) => !state);
+    };
+
+    //Get ref of the `hidden` submit button
     const submitRef = useRef<HTMLButtonElement>();
-
-    const handleConfirmFromModal = () => {
+    //Clicks the `hidden` submit button
+    const handleSaveConfirmFromModal = () => {
         submitRef.current.click();
+    };
+
+    const handleDeleteConfirmFromModal = async () => {
+        try {
+            await deleteDoc(postRef);
+            router.replace('/');
+            toast.success('Post deleted succefully');
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const { register, handleSubmit, reset, watch } = useForm({
@@ -105,10 +139,21 @@ function PostForm({ defaultValues, postRef, preview }) {
 
     return (
         <div>
+            {
+                //Save updates modal
+            }
             <Modal
-                isOpen={isModalOpen}
-                toggleModal={toggleModal}
-                callbackOnConfirm={handleConfirmFromModal}
+                isOpen={isSaveModalOpen}
+                toggleModal={toggleSaveModal}
+                callbackOnConfirm={handleSaveConfirmFromModal}
+            />
+            {
+                //Delete post Modal
+            }
+            <Modal
+                isOpen={isDeleteModalOpen}
+                toggleModal={toggleDeleteModal}
+                callbackOnConfirm={handleDeleteConfirmFromModal}
             />
             <form onSubmit={handleSubmit(updatePost)}>
                 <div className="flex flex-col items-center sm:items-start">
@@ -127,14 +172,24 @@ function PostForm({ defaultValues, postRef, preview }) {
                         />
                         <label className="mt-1">Publish</label>
                     </fieldset>
-
-                    <button
-                        type="button"
-                        onClick={() => setIsModalOpen(!isModalOpen)}
-                        className="px-2 py-1 text-sm rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 my-2"
-                    >
-                        Save Changes
-                    </button>
+                    <span className="flex flex-row items-center justify-between w-full">
+                        <button
+                            type="button"
+                            onClick={() => setIsSaveModalOpen(!isSaveModalOpen)}
+                            className="px-2 py-1 text-sm rounded-lg bg-yellow-300 dark:bg-[#090A0D] border-1 border-yellow-600 my-2"
+                        >
+                            Save Changes
+                        </button>
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setIsDeleteModalOpen(!isDeleteModalOpen)
+                            }
+                            className="px-2 py-1 text-sm rounded-lg bg-red-500 text-white border-yellow-600 my-2"
+                        >
+                            Delete Post
+                        </button>
+                    </span>
                     <button ref={submitRef} type="submit" className="hidden" />
 
                     {preview && (
