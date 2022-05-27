@@ -7,7 +7,7 @@ export default function Footer() {
                         <h6 className="uppercase font-semibold mb-4 flex justify-center md:justify-start">
                             Contact
                         </h6>
-                        <span className="flex flex-row items-center justify-between">
+                        <span className="flex flex-col md:flex-row items-center justify-between">
                             <p className="flex items-center justify-center md:justify-start mb-4 mr-5">
                                 <svg
                                     aria-hidden="true"
