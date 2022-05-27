@@ -8,6 +8,7 @@ import toast from 'react-hot-toast';
 import {
     deleteDoc,
     doc,
+    DocumentData,
     DocumentReference,
     serverTimestamp,
     updateDoc,
@@ -83,7 +84,7 @@ function PostManager() {
 }
 
 type PostFormProps = {
-    defaultValues: PostModel;
+    defaultValues: DocumentData;
     postRef: DocumentReference;
     preview: boolean;
 };
