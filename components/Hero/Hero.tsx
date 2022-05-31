@@ -1,7 +1,7 @@
-import Image from 'next/image';
-import { ArrowRightIcon } from '@heroicons/react/solid';
 import { PostModel } from '../../lib/globalTypes';
 import PostRow from './PostRow';
+import HighlightedNews from './HighlightedNews/HighlightedNews';
+import ImageSection from './ImageSection/ImageSection';
 
 type Props = {
     latestPosts: PostModel[];
@@ -12,58 +12,11 @@ export default function Hero({ latestPosts }: Props) {
         <>
             <div className="w-full bg-[#FFC929] dark:bg-[#090A0D]">
                 <section className="grid grid-rows-5 sm:grid-rows-4 grid-cols-3 gap-2 mx-5 sm:mx-16 xl:mx-44 mt-5">
-                    <div className="col-span-full sm:col-span-1 row-span-1 sm:row-span-full">
-                        <h1 className="font-sans font-bold text-3xl my-3 hover:text-white hover:underline select-none">
-                            <a
-                                target="_blank"
-                                rel="noreferrer"
-                                href="https://nextjs.org/blog/next-12"
-                            >
-                                Next.js 12: Biggest Release Ever
-                            </a>
-                        </h1>
-                        <p className="text-xs text-gray-700 dark:text-yellow-700">
-                            <span className="">Most notable features: </span>
-                            <span className=" font-semibold">
-                                Rust Compiler
-                            </span>
-                            ,{' '}
-                            <span className=" font-semibold">
-                                Middleware (beta)
-                            </span>
-                            ,{' '}
-                            <span className=" font-semibold">
-                                React 18 Support
-                            </span>
-                            ,{' '}
-                            <span className=" font-semibold">
-                                Image AVIF Support
-                            </span>
-                        </p>
-                    </div>
-                    <div className="col-span-full sm:col-start-2 sm:col-end-2 row-start-2 row-end-4 sm:row-span-full">
-                        <div className="relative h-[40vh] sm:h-full sm:w-full sm:-mt-5 md:mt-0">
-                            <Image
-                                priority
-                                className="object-contain"
-                                src="/images/nextjs_hero.jpeg"
-                                layout="fill"
-                                alt="logo of Next.js"
-                            />
-                            <div className="z-10 absolute left-0 right-0 bottom-0 mx-auto text-sm hover:text-white">
-                                <p className="flex flex-row flex-nowrap text-xs justify-center items-center bg-[#FFC929] dark:bg-[#090A0D] px-2 py-4 cursor-pointer">
-                                    <a
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href="https://nextjs.org/"
-                                    >
-                                        Go to Next.js official website
-                                    </a>
-                                    <ArrowRightIcon className="h-3 w-3 ml-1" />
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                    <HighlightedNews />
+                    <ImageSection />
+                    {
+                        //Last section of the hero with the top 3 trending posts
+                    }
                     <div className="col-span-full sm:col-start-3 sm:col-end-3 row-start-4 row-end-6 sm:row-span-full">
                         <p className="ml-2 mb-2 text-gray-700 dark:text-yellow-700">
                             Latests posts
