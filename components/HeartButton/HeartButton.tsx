@@ -9,7 +9,7 @@ import {
     setDoc,
     updateDoc,
     getDoc,
-} from 'firebase/firestore';
+} from '@firebase/firestore';
 
 type Props = {
     postRef: DocumentReference;

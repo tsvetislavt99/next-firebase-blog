@@ -2,11 +2,11 @@ import toast from 'react-hot-toast';
 import Image from 'next/image';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup } from '@firebase/auth';
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { useContext, useEffect, useState } from 'react';
 import { UserContext } from '../lib/context';
-import { getDoc, doc, writeBatch } from 'firebase/firestore';
+import { getDoc, doc, writeBatch } from '@firebase/firestore';
 
 export default function Enter() {
     const { user, username } = useContext(UserContext);

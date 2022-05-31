@@ -1,5 +1,5 @@
-import { User } from 'firebase/auth';
-import { FieldValue, Timestamp } from 'firebase/firestore';
+import { User } from '@firebase/auth';
+import { FieldValue, Timestamp } from '@firebase/firestore';
 
 export type UserContextParams = {
     user: User | null;

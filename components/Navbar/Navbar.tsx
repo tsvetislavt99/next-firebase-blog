@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import toast from 'react-hot-toast';
 import { MenuIcon, XIcon, CodeIcon } from '@heroicons/react/solid';
-import { signOut, User } from 'firebase/auth';
+import { signOut, User } from '@firebase/auth';
 import { auth } from '../../lib/firebase';
 import { useContext, useState } from 'react';
 import { UserContext } from '../../lib/context';

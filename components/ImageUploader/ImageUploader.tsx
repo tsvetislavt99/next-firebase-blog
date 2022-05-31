@@ -1,4 +1,4 @@
-import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { auth, storage } from '../../lib/firebase';

@@ -1,4 +1,4 @@
-import { DocumentReference, Timestamp } from 'firebase/firestore';
+import { DocumentReference, Timestamp } from '@firebase/firestore';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';

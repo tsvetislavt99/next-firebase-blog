@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from '@heroicons/react/solid';
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp } from '@firebase/firestore';
 import Link from 'next/link';
 import { PostModel } from '../../lib/globalTypes';
 

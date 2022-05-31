@@ -1,4 +1,4 @@
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp } from '@firebase/firestore';
 import { useRouter } from 'next/router';
 import { useContext, useState } from 'react';
 import toast from 'react-hot-toast';

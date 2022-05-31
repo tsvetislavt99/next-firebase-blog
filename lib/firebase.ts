@@ -1,5 +1,5 @@
-import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { initializeApp, getApps } from '@firebase/app';
+import { getAuth, GoogleAuthProvider } from '@firebase/auth';
 import {
     collection,
     getDocs,
@@ -15,8 +15,8 @@ import {
     setDoc,
     doc,
     FieldValue,
-} from 'firebase/firestore';
-import { getStorage } from 'firebase/storage';
+} from '@firebase/firestore';
+import { getStorage } from '@firebase/storage';
 import { PostModel } from './globalTypes';
 
 const firebaseConfig = {

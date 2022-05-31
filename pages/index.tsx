@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import PostFeed from '../components/PostFeed/PostFeed';
-import Loader from '../components/Loader/Loader';
 import {
     fromMillis,
     getPostsStartingFromWithLimit,
     getPostsWithLimit,
 } from '../lib/firebase';
 import { PostModel } from '../lib/globalTypes';
-import { FieldValue, Timestamp } from 'firebase/firestore';
+import { FieldValue, Timestamp } from '@firebase/firestore';
 import Hero from '../components/Hero/Hero';
 import Modal from '../components/Modal/Modal';
 

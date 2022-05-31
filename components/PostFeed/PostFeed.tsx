@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { PostModel } from '../../lib/globalTypes';
-import { Timestamp } from 'firebase/firestore';
+import { Timestamp } from '@firebase/firestore';
 
 type Props = {
     posts: PostModel[];

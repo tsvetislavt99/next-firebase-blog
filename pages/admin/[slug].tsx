@@ -12,12 +12,11 @@ import {
     DocumentReference,
     serverTimestamp,
     updateDoc,
-} from 'firebase/firestore';
+} from '@firebase/firestore';
 import RouteGuard from '../../components/RouteGuard/RouteGuard';
 import { firestore, auth } from '../../lib/firebase';
 import ImageUploader from '../../components/ImageUploader/ImageUploader';
 import Modal from '../../components/Modal/Modal';
-import { PostModel } from '../../lib/globalTypes';
 
 export default function AdminPostEdit() {
     return (

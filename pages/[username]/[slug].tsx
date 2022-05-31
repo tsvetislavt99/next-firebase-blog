@@ -7,7 +7,7 @@ import {
 } from '../../lib/firebase';
 import { useDocumentData } from 'react-firebase-hooks/firestore';
 import { PostModel } from '../../lib/globalTypes';
-import { doc } from 'firebase/firestore';
+import { doc } from '@firebase/firestore';
 
 type Cntx = {
     params: {
