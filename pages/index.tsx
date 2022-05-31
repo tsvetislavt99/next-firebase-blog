@@ -8,7 +8,6 @@ import {
 import { PostModel } from '../lib/globalTypes';
 import { FieldValue, Timestamp } from '@firebase/firestore';
 import Hero from '../components/Hero/Hero';
-import Modal from '../components/Modal/Modal';
 
 const LIMIT = 6;
 export async function getServerSideProps() {
@@ -28,7 +27,6 @@ export default function Home(props: Props) {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     //Indicate if there are no more posts to be fetched from firestore
     const [postsEnd, setPostsEnd] = useState<boolean>(false);
-
     const getMorePosts = async () => {
         setIsLoading(true);
         const lastPost = posts[posts.length - 1];
@@ -53,12 +51,24 @@ export default function Home(props: Props) {
     };
 
     return (
-        <main className="bg-white dark:bg-black">
+        <main className="bg-white dark:bg-black flex flex-col">
             <Hero latestPosts={posts.slice(0, 3)} />
             <h2 className="text-center text-xl font-mono font-semibold underline">
                 All Posts
             </h2>
             <PostFeed posts={posts} />
+            {postsEnd ? (
+                <p className="w-36 h-10 self-center py-1 px-2 mb-3 ">
+                    No more posts :{'('}
+                </p>
+            ) : (
+                <button
+                    onClick={getMorePosts}
+                    className="w-36 h-10 self-center py-1 px-2 mb-3 rounded-md border border-yellow-300 dark:border-[#090A0D] hover:bg-[#090A0D] hover:text-[#FFC929] hover:dark:bg-[#FFC929] hover:dark:text-[#090A0D] duration-300"
+                >
+                    See more
+                </button>
+            )}
         </main>
     );
 }
