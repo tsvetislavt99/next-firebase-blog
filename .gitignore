@@ -25,6 +25,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+lib/firebase.ts
+
 # local env files
 .env*.local
 
